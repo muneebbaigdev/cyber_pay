@@ -1,7 +1,9 @@
 import React, { useRef,useState } from 'react';
 import emailjs from '@emailjs/browser';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
+  const navigate = useNavigate()
   const form = useRef();
   const [otp,setOtp] = useState(Math.round(Math.random()*10000))
   const [isOtpSent,setIsOtpSent] = useState(false)
@@ -16,11 +18,28 @@ const Signup = () => {
     e.preventDefault()
     setCotp(e.target.value)
   }
-  const checkOtp = (e)=>{
+  const checkOtp = async (e)=>{
     e.preventDefault();
     if(cotp === otp.toString()){
-      localStorage.setItem('userData',JSON.stringify(formData))
-      alert("Account Successfully Created")
+      let {username,email,password} = formData
+      let newUser = await fetch('http://localhost:8080/authentication/signup',{
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify({
+          username,email,password
+        })
+      })
+      let response =await newUser.json()
+      if(response.success){
+        alert(response.message)
+        navigate('/')
+
+      }else if(!response.success){
+        alert(response.message)
+        navigate('/signup')
+      }
     }
   }
   const onChange = (e) => {

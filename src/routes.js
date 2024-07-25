@@ -2,11 +2,17 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import LoginSignup from './components/LoginSignup'
 import Forgetpassword from './pages/Forgetpassword'
+import Home from "./pages/public/Home";
+import About from "./pages/public/About"
+
 
 export const publicRoutes = [
     {
       path: "/",
-      element: <h1>Home Page</h1>,
+      element: <Home/>,
+    },{
+      path:"/about",
+      element:<About/>
     },{
       path:"/login",
       element:<LoginSignup form={<Login/>} />

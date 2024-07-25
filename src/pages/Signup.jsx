@@ -2,7 +2,10 @@ import React, { useRef,useState } from 'react';
 import emailjs from '@emailjs/browser';
 import { useNavigate } from 'react-router-dom';
 
+
 const Signup = () => {
+
+
   const navigate = useNavigate()
   const form = useRef();
   const [otp,setOtp] = useState(Math.round(Math.random()*10000))
@@ -33,6 +36,7 @@ const Signup = () => {
       })
       let response =await newUser.json()
       if(response.success){
+        localStorage.setItem('token',response.token)
         alert(response.message)
         navigate('/')
 
@@ -72,6 +76,7 @@ const Signup = () => {
 
   return (
 <>
+
 {!isOtpSent ? (
     <form ref={form} onSubmit={sendEmail} className='h-3/5 w-3/4 border border-slate-200 shadow-lg text-center pt-20'>
     <img src="/logo.png" className="h-24 mx-auto -mt-10" alt="logo" />
@@ -90,6 +95,7 @@ const Signup = () => {
       <button className='w-3/5 p-3 m-3 border border-slate-200 shadow-md bg-yellow-500' type='submit'>Verify</button>
       </form>
     )}
+
   </>
   )
 }

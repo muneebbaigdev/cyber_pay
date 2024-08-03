@@ -1,0 +1,78 @@
+
+const [selectedFile, setSelectedFile] = useState(null);
+const [uploaded, setUploaded] = useState(null);
+
+const hadleSubmit = (e) => {
+  e.preventDefault();
+
+  const formData = new FormData();
+  formData.append('file', selectedFile);
+  
+
+
+
+  axios.post('http://localhost:8080/upload', formData, {
+    onUploadProgress: (data) => {
+      setUploaded(Math.round((data.loaded / data.total) * 100));
+    },
+  })
+  .then((success) => {
+    alert('Submitted successfully');
+  })
+  .catch((error) => {
+    console.log(error);
+    alert('Error happened!');
+  });
+
+
+
+
+};
+{/* <BrowserRouter>
+<Navbar/>
+<Routes>
+{!logedIn ? (publicRoutes.map((rt)=>(
+  <Route key={rt.path} path={rt.path} element={rt.element} />
+))):(privateRoutes.map((rt)=>(
+  <Route key={rt.path} path={rt.path} element={rt.element} />
+)))}
+
+</Routes>
+<Footer/>
+</BrowserRouter> */}
+  return (
+
+        <form onSubmit={hadleSubmit}>
+
+        <div className="form-group">
+
+          <input
+            type="file"
+            onChange={(e) => {setSelectedFile(e.target.files[0])}}
+          />
+        </div>
+
+        {uploaded && (
+          <div className="progress mt-2">
+            <div
+              className="progress-bar"
+              role="progressbar"
+              aria-valuenow={uploaded}
+              aria-valuemin="0"
+              aria-valuemax="100"
+              style={{ width: `${uploaded}%` }}
+            >
+              {`${uploaded}%`}
+            </div>
+          </div>
+        )}
+
+        <button type="submit" className="btn btn-primary mt-2">
+          Submit
+        </button>
+      </form>
+
+  );
+}
+
+export default App;

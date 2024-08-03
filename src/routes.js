@@ -4,6 +4,9 @@ import LoginSignup from './components/LoginSignup'
 import Forgetpassword from './pages/Forgetpassword'
 import Home from "./pages/public/Home";
 import About from "./pages/public/About"
+import Myaccount from "./pages/private/Myaccount"
+import Sendmoney from "./pages/private/Sendmoney"
+import Transactionhistory from "./pages/private/Transactionhistory"
 
 
 export const publicRoutes = [
@@ -25,8 +28,45 @@ export const publicRoutes = [
     }
   ]
 export const privateRoutes = [
+
+    {
+      path: "/",
+      element: <Myaccount/>,
+    },{
+      path:"/sendmoney",
+      element:<Sendmoney/>
+    },{
+      path:"/transactionhistory",
+      element:<Transactionhistory />
+    }
+
+]
+export const publicNav = [
   {
-    path: "/",
-    element: <h1>You are signed in</h1>,
+    text:"Home",
+    link:"/"
+  },  {
+    text:"About",
+    link:"/about"
+  },  {
+    text:"Login",
+    link:"/login"
+  },  {
+    text:"Signup",
+    link:"/signup"
+  },
+
+
+]
+export const privateNav = [
+  {
+    text:"My Account",
+    link:"/"
+  },  {
+    text:"Send Money",
+    link:"/sendmoney"
+  },  {
+    text:"Transaction History",
+    link:"/transactionhistory"
   }
 ]

@@ -37,9 +37,12 @@ useEffect(()=>{
 checkUser()
 },[])
 
+
+
   return (
+
 <BrowserRouter>
-{!logedIn && <Navbar/>}
+<Navbar/>
 <Routes>
 {!logedIn ? (publicRoutes.map((rt)=>(
   <Route key={rt.path} path={rt.path} element={rt.element} />
@@ -48,9 +51,8 @@ checkUser()
 )))}
 
 </Routes>
-{!logedIn && <Footer/>}
+<Footer/>
 </BrowserRouter>
-  
 
   );
 }
